@@ -28,6 +28,8 @@ public class AuthService {
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
+    private final JwtService jwtService;
+    private final CustomUserDetailsService userDetailsService;
 
     public AuthResponse login(LoginRequest request) {
         Authentication authentication = authenticationManager.authenticate(
@@ -39,10 +41,17 @@ public class AuthService {
         User user = userRepository.findByUsername(request.getUsername())
             .orElseThrow(() -> new EntityNotFoundException("User not found"));
         Set<String> roles = authentication.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toSet());
+
+        var userDetails = this.userDetailsService.loadUserByUsername(request.getUsername());
+        String accessToken = jwtService.generateToken(userDetails);
+        String refreshToken = jwtService.generateRefreshToken(userDetails);
+
         return AuthResponse.builder()
             .username(user.getUsername())
             .email(user.getEmail())
             .roles(roles)
+            .accessToken(accessToken)
+            .refreshToken(refreshToken)
             .build();
     }
 
