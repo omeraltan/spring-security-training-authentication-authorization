@@ -19,4 +19,8 @@ public class AuthResponse {
 
     private Set<String> roles;
 
+    private String accessToken;
+
+    private String refreshToken;
+
 }
