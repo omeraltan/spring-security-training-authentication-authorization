@@ -16,7 +16,6 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashSet;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/auth")

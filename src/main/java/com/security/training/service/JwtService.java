@@ -2,7 +2,6 @@ package com.security.training.service;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import lombok.extern.slf4j.Slf4j;
@@ -26,7 +25,6 @@ public class JwtService {
     private long jwtExpiration;
     @Value("${jwt.refresh-expiration}")
     private long refreshExpiration;
-
 
     public String extractUsername(String jwtToken) {
         return extractClaim(jwtToken, Claims::getSubject);
@@ -95,4 +93,5 @@ public class JwtService {
     public String generateRefreshToken(UserDetails userDetails) {
         return generateJWT(new HashMap<>(), userDetails, refreshExpiration);
     }
+
 }

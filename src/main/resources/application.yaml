@@ -32,3 +32,7 @@ jwt:
     secret: 3537367567575757WRWR2424234RYRTYTY353453464564564GFHGFH
     expiration: 3600000             # 1 hour in milliseconds
     refresh-expiration: 86400000    # 24 hours in milliseconds
+
+oauth2:
+    authorization-server:
+        issuer-uri: http://localhost:8080
